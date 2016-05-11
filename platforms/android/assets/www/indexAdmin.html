@@ -239,15 +239,15 @@
                                         var arrayMarcadores = [];
                                         var marcadorTemp;
                                         function onDeviceReady(){
-
                                                 navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
                                         };
                                         function onSuccess(position){
+                                            console.log("yes");
                                             var $map_canvas = $( "#googleMap" );
                                                 $map_canvas.css({"width": "100%", "height": $( window ).height()*0.5});
                                                 var mapOptions = {
                                                     center: new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
-                                                    zoom:13,
+                                                    zoom:12,
                                                     mapTypeId: google.maps.MapTypeId.ROADMAP,
                                                     mapTypeControl:false,
                                                     streetViewControl:false,
@@ -262,6 +262,7 @@
                                         }
 
                                         function onError(error){
+                                            console.log(error.message);
                                             alert(error.message);
                                         }
                                         function agregarParada(location) {

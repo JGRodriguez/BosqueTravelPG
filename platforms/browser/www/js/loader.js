@@ -9,10 +9,10 @@ $(document).on("pageshow","#rutas",function(){ // When entering pagetwo
     var listaIds=[];
     var listaIdsNuevos=[];
     var listaIdsBorrados=[];
-    var estado=""; 
-
+    var estado="";
+    lista=$('#listaRutas'); 
+    lista.empty();
     var actualizarRutas = function(){
-        lista=$('#listaRutas');
         itemHTML="<li id='rutaidentificador'>"+
                     "<div class='ui-grid-b'>"+
                                 "<div class='ui-block-a' style='width: 20%;'>"+
@@ -27,7 +27,7 @@ $(document).on("pageshow","#rutas",function(){ // When entering pagetwo
                                 "</div>"+
                             "</div>"+
                             "<div class='ui-block-c' style='width: 6%;  float: right;'>"+
-                                   "<a href='#' data-role='button' data-icon='info' data-iconpos='notext' data-theme='c' data-inline='true' class='ui-link ui-btn ui-btn-c ui-icon-info ui-btn-icon-notext ui-btn-inline ui-shadow ui-corner-all' style='position: absolute;top: 50%; margin: -2% 0 0 0;' role='button'>Ver</a><br>"+
+                                   "<a href='#rutainfo' data-role='button' data-icon='info' data-iconpos='notext' data-theme='c' data-inline='true' class='ui-link ui-btn ui-btn-c ui-icon-info ui-btn-icon-notext ui-btn-inline ui-shadow ui-corner-all' style='position: absolute;top: 50%; margin: -2% 0 0 0;' role='button'>Ver</a><br>"+
                         "</div>"+
                   "</li>";
 
@@ -88,6 +88,7 @@ $(document).on("pageshow","#rutas",function(){ // When entering pagetwo
 });
 $(document).on("pageshow","#conductores",function(){ 
     lista=$('#listaConductores');
+    lista.empty();
     itemHTML="<li>"+
                 "<div class='ui-grid-b'>"+
                     "<div class='ui-block-a' style='width: 20%;'>"+
@@ -120,6 +121,7 @@ $(document).on("pageshow","#conductores",function(){
 });
 $(document).on("pageshow","#buses",function(){ // When entering pagetwo
     lista=$('#listaBuses');
+    lista.empty();
     itemHTML="<li>"+
                     "<div class='ui-grid-b'>"+
                             "<div class='ui-block-a' style='width: 20%;'>"+

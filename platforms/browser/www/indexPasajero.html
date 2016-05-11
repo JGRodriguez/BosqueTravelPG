@@ -13,87 +13,22 @@
         <script src="js/jquery-mobile.js"></script>
         <script src="js/loader.js"></script>
         <script src="js/pages.js"></script>
-
         <link href="css/map.css" rel="stylesheet">
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFpWsSf1u89E02YmnnH8VFg7hNHZnth2c">
+        </script>
         <script src="js/map.js"></script>
-         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFpWsSf1u89E02YmnnH8VFg7hNHZnth2c&sensor=false">
-         </script>
-        <script>
-            var map;var pasajero;
-            
-            function onDeviceReady(){
-                    navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
-            };
-            function onSuccess(position){
-    				var mapOptions = {
-    		            center: new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
-    		            zoom:14,
-    		            mapTypeId: google.maps.MapTypeId.ROADMAP,
-    		            mapTypeControl:false,
-    		            streetViewControl:false,
-    		            // fullscreenControl:true,
-    		            // fullscreenControlOptions:true
-    		         }
-    		        map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
-    		        var overlay = new google.maps.KmlLayer({
-                        url:"http://www.juantalavera.co/PG/IDA_Rutas_ElBosque.kml",
-                        suppressInfoWindows: false,
-                        preserveViewport: false,
-                        map:map 
-                        });
-    		        google.maps.event.addListener(overlay,'status_changed',function(){document.getElementById('status').innerHTML = overlay.getStatus();});
-                    var icon_man = 'img/man_marker.png';
-                    pasajero = new google.maps.Marker({
-                            position:  new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-                            icon: icon_man,
-                            map: map,
-                            title: 'Pasajero'
+        <script type="text/javascript" charset="utf-8">
+        function getUrlVars() {
+            var vars = {};
+            var parts = decodeURIComponent(window.location.href).replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+            function(m,key,value) {
+              vars[key] = value;
+            });
+            return vars;
+        }
+        var serverURL=getUrlVars()["url"];
 
-                        });
-
-                    pasajero.setMap(map);  
-
-            }
-            function onError(error){
-              	alert(error.message);
-            }
-            onDeviceReady();
-            function startTracking() {
-
-                // console.log(new Date().getTime());
-                var trackId = navigator.geolocation.watchPosition(successCallback, null, {maximumAge:1000, timeout:60000, enableHighAccuracy:true});
-
-                function successCallback(position){
-                         // map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-
-
-                        pasajero.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-
-                        document.getElementById("latLong").innerHTML=position.coords.latitude+", "+position.coords.longitude;
-
-
-                };
-
-                }
-
-
-                setInterval(startTracking, 1000);
-                            
-            </script>
-
-            <script type="text/javascript" charset="utf-8">
-            function getUrlVars() {
-                var vars = {};
-                var parts = decodeURIComponent(window.location.href).replace(/[?&]+([^=&]+)=([^&]*)/gi,    
-                function(m,key,value) {
-                  vars[key] = value;
-                });
-                return vars;
-            }
-            var serverURL=getUrlVars()["url"];
-            alert(serverURL);
-
-            </script>
+        </script>
 
         <script type="text/javascript" src="cordova.js"></script>
 
@@ -133,7 +68,7 @@
           </div>
 
 
-          <div data-role="page" id="rutas" class="pagina">
+        <div data-role="page" id="rutas" class="pagina">
                 <div data-role="header" data-position="fixed" class="header">
                     <form>
                         <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>
@@ -151,7 +86,20 @@
                     </ul>
                 </div>
 
+        </div>
+        <div data-role="page" id="rutainfo" class="pagina">
+            <div data-role="header" data-position="fixed" class="header">
+                <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>
+                    <div class="titulo"><a href="#rutas" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="c" >Volver</a>Ruta:  Origen: Destino: </div>
             </div>
+            <div data-role="content">
+                    <div id="googleMap" ></div>
+                    <div  style="width: 25%;margin: auto">
+                    <input type="submit"   onclick="" value="Reservar">
+                </div>
+                                    
+            </div>
+        </div>
     </body>
 
     </html>

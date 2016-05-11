@@ -94,10 +94,10 @@
         "cordova-plugin-media-capture": {
             "PACKAGE_NAME": "com.unbosque.bosquetravelpg"
         },
-        "cordova-plugin-compat": {
+        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.unbosque.bosquetravelpg"
         },
-        "cordova-plugin-geolocation": {
+        "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.unbosque.bosquetravelpg"
         }
     },
@@ -407,7 +407,7 @@
         "cordova-plugin-file": "4.1.1",
         "cordova-plugin-media": "2.2.0",
         "cordova-plugin-media-capture": "1.2.0",
-        "cordova-plugin-compat": "1.0.0",
-        "cordova-plugin-geolocation": "2.2.0"
+        "cordova-plugin-geolocation": "2.2.0",
+        "cordova-plugin-compat": "1.0.0"
     }
 }
