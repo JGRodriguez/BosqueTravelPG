@@ -18,10 +18,16 @@
         },
         "cordova-plugin-media-capture": {
             "PACKAGE_NAME": "com.unbosque.bosquetravelpg"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.unbosque.bosquetravelpg"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.unbosque.bosquetravelpg"
+        },
+        "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.unbosque.bosquetravelpg"
         }
     }
