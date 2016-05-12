@@ -88,13 +88,19 @@
 
         </div>
         <div data-role="page" id="rutainfo" class="pagina">
-            <div data-role="header" data-position="fixed" class="header">
+            <div data-role="header"  class="header">
                 <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>
-                    <div class="titulo"><a href="#rutas" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="c" >Volver</a>Ruta:  Origen: Destino: </div>
+                    <div class="titulo">
+                    <a href="#rutas" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="c" >Volver</a>
+                    
+                    </div>
+                    <p><h2 id="infoNombre"></h2>
+                    <b id="infoOrigen"></b>
+                    <b id="infoDestino"></b></p>
             </div>
             <div data-role="content">
-                    <div id="googleMap" ></div>
-                    <div  style="width: 25%;margin: auto">
+                <div id="googleMap"  ></div>
+                <div  style="width: 40%;margin: auto">
                     <input type="submit"   onclick="" value="Reservar">
                 </div>
                                     
