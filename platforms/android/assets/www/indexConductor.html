@@ -12,7 +12,6 @@
         <link href="css/map.css" rel="stylesheet">
         <script src="js/jquery-1.10.2.min.js"></script>
         <script src="js/jquery-mobile.js"></script>
-
         <script src="js/map.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFpWsSf1u89E02YmnnH8VFg7hNHZnth2c&sensor=false">
          </script>
@@ -20,95 +19,17 @@
          
         <script type="text/javascript" src="cordova.js"></script>
         <script>
-            var map;var bus;
-            
-            function onDeviceReady(){
-                    navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
-            };
-            function onSuccess(position){
-    				var mapOptions = {
-    		            center: new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
-    		            zoom:14,
-    		            mapTypeId: google.maps.MapTypeId.ROADMAP,
-    		            mapTypeControl:false,
-    		            streetViewControl:false,
-    		            // fullscreenControl:true,
-    		            // fullscreenControlOptions:true
-    		         }
-    		        map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
-    		        var overlay = new google.maps.KmlLayer({
-                        url:"http://www.juantalavera.co/PG/IDA_Rutas_ElBosque.kml",
-                        suppressInfoWindows: false,
-                        preserveViewport: false,
-                        map:map 
-                        });
-    		        google.maps.event.addListener(overlay,'status_changed',function(){document.getElementById('status').innerHTML = overlay.getStatus();});
-                    var icon_bus = 'img/bus_marker.png';
-                    bus = new google.maps.Marker({
-                            position:  new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-                            icon: icon_bus,
-                            map: map,
-                            title: 'Conductor'
-
-                        });
-
-                    bus.setMap(map);  
-
-            }
-            function onError(error){
-              	alert(error.message);
-            }
-            onDeviceReady();
-            function startTracking() {
-
-                // console.log(new Date().getTime());
-                var trackId = navigator.geolocation.watchPosition(successCallback, null, {maximumAge:1000, timeout:60000, enableHighAccuracy:true});
-
-                function successCallback(position){
-                        // map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-
-
-                        bus.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-
-                        document.getElementById("latLong").innerHTML=position.coords.latitude+", "+position.coords.longitude;
-
-
-                };
-
-                }
-
-
-                setInterval(startTracking, 1000);
-                function scan()
-					{
-				    cordova.plugins.barcodeScanner.scan(
-				        function (result) {
-				            if(!result.cancelled)
-				            {
-				                if(result.format == "QR_CODE")
-				                {
-				                    navigator.notification.prompt("Please enter name of data",  function(input){
-				                        var name = input.input1;
-				                        var value = result.text;
-
-				                        var data = localStorage.getItem("LocalData");
-				                        console.log(data);
-				                        data = JSON.parse(data);
-				                        data[data.length] = [name, value];
-
-				                        localStorage.setItem("LocalData", JSON.stringify(data));
-
-				                        alert("Done");
-				                    });
-				                }
-				            }
-				        },
-				        function (error) {
-				            alert("Scanning failed: " + error);
-				        }
-				   );
-				}            
-            </script>
+                function startScan() {        
+                     cordova.plugins.barcodeScanner.scan(                               
+                             function(result) {                                               
+                             var s = "Result: " + result.text + "&lt;br/&gt;" + "Format: " + result.format + "&lt;br/&gt;" +  "Cancelled: " + result.cancelled;      
+                             alert(s);                                                           
+                             }, function(error) {                                               
+                             alert("Scanning failed: " + error);                               
+                             }               
+                    ); 
+                }            
+        </script>
           
 
 
@@ -118,24 +39,73 @@
 
     </head>
     <body>
-<!-- <div id="googleMap"></div>
-<div id="status"></div>
-<p id="latLong"></p> -->
         <div data-role="page" class="pagina" id="menu">
             <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>
             <div data-role="content">
                 <ul data-role="listview" data-inset="true" class="noshadow">
                     <li data-icon="false">
-                        <a href="javascript:scan();" data-transition="flow">
+                        <a href="#scanQR" data-transition="flow">
                             <img class="imgList" src="img/pasajero.png">
                             <h2>Agregar Pasajero</h2>
-                            <p>Gestiona pasajes</p>
+                            <p>Escanear pasaje QR</p>
+                        </a>
+                    </li>
+                    <li data-icon="false">
+                        <a href="#mapaC" data-transition="flow">
+                            <img class="imgList" src="img/route.png">
+                            <h2>Ver Mapa</h2>
+                            <p>Muestra Ruta</p>
                         </a>
                     </li>
                   </ul>
                 
             </div>
           </div>
+
+        <div data-role="page" id="scanQR">
+                <div data-role="header" class="header">
+                        <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>   
+                        <div class="titulo">
+                        <a href="#menu" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="c" >Volver</a>
+                        </div>
+                        <p><h2>Escanear pasaje QR</h2></p>
+                        <div  style="width: 40%;margin: auto">
+                            <input type="submit"  onclick="startScan()" value="Escanear">
+                        </div>
+                </div>
+        </div>
+        <div data-role="page" id="mapaC" class="pagina">
+            <div data-role="header"  class="header">
+                <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>
+                    <div class="titulo">
+                        <a href="#menu" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="c" >Volver</a>
+                    </div>
+                    <p><h2 id="infoNombre"></h2>
+                    <b id="infoOrigen"></b>
+                    <b id="infoDestino"></b></p>
+            </div>
+            <div data-role="content">
+                <div id="googleMap" >
+                </div>
+                <div class="ui-field-contain">
+                    <div  style="width: 60%;margin: auto">
+                    <center><h4>Rutas:<h4></center>
+                    <select name="select-native-2" id="select-native-2" data-mini="true">
+                        <option value="1">The 1st Option</option>
+                        <option value="2">The 2nd Option</option>
+                        <option value="3">The 3rd Option</option>
+                        <option value="4">The 4th Option</option>
+
+                    </select>
+                    </div>
+                    <div  style="width: 40%;margin: auto">
+                        <input type="submit" for="select-native-2" value="Iniciar">
+                    </div>
+                </div>
+                
+                                    
+            </div>
+        </div>
 
     </body>
 

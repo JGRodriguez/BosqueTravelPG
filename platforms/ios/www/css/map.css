@@ -1,0 +1,16 @@
+a[href^="http://maps.google.com/maps"]{
+  display:none !important
+}
+.gm-style-cc div {        
+  display:none !important;
+}
+#googleMap{
+  margin-left: auto;
+  margin-right: auto;
+}
+/*
+ img[src="https://maps.gstatic.com/mapfiles/api-3/images/google4.png"] {
+  display:none !important;
+}
+
+*/

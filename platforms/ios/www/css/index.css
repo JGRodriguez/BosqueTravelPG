@@ -1,0 +1,60 @@
+          body {
+                background-color: #DAE0C5;
+            }
+
+            #loginbox {
+                margin-top: 30px;
+            }
+
+            #loginbox > div:first-child {        
+                padding-bottom: 10px;    
+            }
+
+
+            #form > div {
+                margin-bottom: 25px;
+            }
+
+            #form > div:last-child {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            .panel {    
+                background-color: transparent;
+                padding-top: 35px;
+            }
+
+            .panel-body {
+                padding-top: 30px;
+                background-color: rgba(2555,255,255,.3);
+            }
+
+            #logo_bosque{
+                text-align: center;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            #olvido_contra{
+                color: #9DA47F;
+            }
+            .btn-primary {
+                color: #fff;
+                background-color: #D28443;
+                border-color: #C57D40;
+            }
+            .menu_botones{
+              text-align: center;
+            }
+            #particles {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                top: 0;                        
+                bottom: 0;
+                left: 0;
+                right: 0;
+                position: absolute;
+                z-index: -2;
+            }
+

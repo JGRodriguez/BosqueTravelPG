@@ -1,0 +1,43 @@
+  	.pagina {
+        background-color: #DAE0C5 !important;
+    }
+
+	.noshadow {
+	    -moz-box-shadow: none !important;
+	    -webkit-box-shadow: none !important;
+	    box-shadow: none !important;
+	}
+
+	.col_img{
+		text-align: center;
+	}
+
+	.imgList{
+		margin-top: 1em;
+	}
+
+	li{
+		background: #BAC594;
+	}
+	a{
+		background: #F6F6F6 !important;
+	}
+	.header{
+		background-color: #DAE0C5 !important;
+		text-align: center;
+	}
+	.titulo{
+		font-size: 24px;
+		margin-top: 20px;
+		margin-bottom: 35px;
+		height: 20px;
+	}
+	.agregar{
+		width: 300px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.bsubmit{
+		width: 50px;
+	}
+

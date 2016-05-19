@@ -21,6 +21,9 @@
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.unbosque.bosquetravelpg"
+        },
+        "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "com.unbosque.bosquetravelpg"
         }
     },
     "dependent_plugins": {
