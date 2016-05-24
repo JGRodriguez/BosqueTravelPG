@@ -1,11 +1,11 @@
 var actualizadorBus;
+var markerBus;
 $(document).on("pageshow","#rutainfo",function(){
     var map;
     var arrayMarcadores = [];
     var marcadorTemp;
     var idRutaSeleccionada=localStorage.getItem("idRuta");
     var idBusRuta;
-    var markerBus;
     var otromarker;
 
     var onSuccess= function(position){
@@ -93,7 +93,7 @@ $(document).on('pagebeforehide', '#rutainfo', function(){
 $(document).on("pageshow","#mapaC",function(){
     var map;
     var marcadorTemp;
-    var markerBus;
+    
     var otromarker;
 
     var onSuccess= function(position){
@@ -118,9 +118,10 @@ $(document).on("pageshow","#mapaC",function(){
                 title: 'Bus'
 
             });
+
     }
     var onError= function(error){
-        console.log(error.message);
+        console.log("Error:"+error.message);
         alert(error.message);
     }
     navigator.geolocation.getCurrentPosition(onSuccess,onError);

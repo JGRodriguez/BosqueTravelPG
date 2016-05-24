@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+
+        <link rel="stylesheet" href="css/jquery-mobile.css" />
+        <link href="css/pages.css" rel="stylesheet">
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/jquery-mobile.js"></script>
+        <script src="js/loader.js"></script>
+        <script src="js/pages.js"></script>
+        <link href="css/map.css" rel="stylesheet">
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFpWsSf1u89E02YmnnH8VFg7hNHZnth2c">
+        </script>
+        <script src="js/map.js"></script>
+        <script type="text/javascript" charset="utf-8">
+        function getUrlVars() {
+            var vars = {};
+            var parts = decodeURIComponent(window.location.href).replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+            function(m,key,value) {
+              vars[key] = value;
+            });
+            return vars;
+        }
+        var serverURL=getUrlVars()["url"];
+
+        </script>
+
+        <script type="text/javascript" src="cordova.js"></script>
+
+          
+        <title>Pasajero</title>
+
+    </head>
+    <body>
+        <div data-role="page" class="pagina" id="menu">
+            <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>
+            <div data-role="content">
+                <ul data-role="listview" data-inset="true" class="noshadow">
+                    <li data-icon="false">
+                        <a href="#pasajes" data-transition="flow">
+                            <img class="imgList" src="img/ticket.png">
+                            <h2>COMPRAR PASAJE</h2>
+                            <p>Gestiona pasajes</p>
+                        </a>
+                    </li>
+                    <li data-icon="false">
+                        <a href="#reservas" data-transitiion"turn">
+                            <img class="imgList" src="img/reserva.png">
+                            <h2>RESERVAS</h2>
+                            <p>Gestiona reservas</p>
+                        </a>
+                    </li>
+                    <li data-icon="false">
+                        <a href="#rutas">
+                            <img class="imgList" src="img/route.png">
+                            <h2>RUTAS</h2>
+                            <p>Muestra rutas disponibles</p>
+                        </a>
+                    </li>
+                </ul>
+                
+            </div>
+          </div>
+
+
+        <div data-role="page" id="rutas" class="pagina">
+                <div data-role="header" data-position="fixed" class="header">
+                    <form>
+                        <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>
+                        <div class="ui-block-a" style="width: 77%; padding-left:15px">
+                            <input data-type="search" id="filtroListaRutas" class="filtro" placeholder="Buscar rutas...">
+                        </div>    
+                        <div class="ui-block-b" style="width: 20%;">
+                        <a href="#menu" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="c" >Volver</a>
+                        </div>
+                    </form>
+                </div>
+                <div data-role="content">
+                    <ul data-role="listview"  data-sort="true" id="listaRutas" data-filter="true" data-input="#filtroListaRutas">
+                        
+                    </ul>
+                </div>
+
+        </div>
+        <div data-role="page" id="rutainfo" class="pagina">
+            <div data-role="header"  class="header">
+                <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>
+                    <div class="titulo">
+                    <a href="#rutas" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="c" >Volver</a>
+                    
+                    </div>
+                    <p><h2 id="infoNombre"></h2>
+                    <b id="infoOrigen"></b>
+                    <b id="infoDestino"></b></p>
+            </div>
+            <div data-role="content">
+                <div id="googleMap"  ></div>
+                <div  style="width: 40%;margin: auto">
+                    <input type="submit"   onclick="" value="Reservar">
+                </div>
+                                    
+            </div>
+        </div>
+    </body>
+
+    </html>
