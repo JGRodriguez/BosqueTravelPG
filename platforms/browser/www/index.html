@@ -34,12 +34,12 @@ under the License.
         function redireccion(){
             var usuario = $('#user').val();
             var pass = $('#password').val();
-            if(usuario==pass){
-                    if(usuario == "a"){
+            if(usuario.toLowerCase()==pass.toLowerCase()){
+                    if(usuario.toLowerCase() == "a"){
                        $('#form').attr('action', 'indexAdmin.html');
-                    }else if(usuario =="c"){
+                    }else if(usuario.toLowerCase() =="c"){
                         $('#form').attr('action', 'indexConductor.html');
-                    }else if(usuario =="p"){
+                    }else if(usuario.toLowerCase() =="p"){
                          $('#form').attr('action', 'indexPasajero.html');
                     }
                     return true;

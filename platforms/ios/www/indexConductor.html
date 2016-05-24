@@ -19,87 +19,54 @@
          
         <script type="text/javascript" src="cordova.js"></script>
         <script>
-                function startScan() {        
-                     cordova.plugins.barcodeScanner.scan(                               
-                             function(result) {                                               
-                             var s = "Result: " + result.text + "&lt;br/&gt;" + "Format: " + result.format + "&lt;br/&gt;" +  "Cancelled: " + result.cancelled;      
-                             alert(s);                                                           
-                             }, function(error) {                                               
-                             alert("Scanning failed: " + error);                               
-                             }               
-                    ); 
-                }            
+        function getUrlVars() {
+            var vars = {};
+            var parts = decodeURIComponent(window.location.href).replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+            function(m,key,value) {
+              vars[key] = value;
+            });
+            return vars;
+        }
+        var serverURL=getUrlVars()["url"];
+        function startScan() {        
+             cordova.plugins.barcodeScanner.scan(                               
+                     function(result) {                                               
+                     var s = "Result: " + result.text + "&lt;br/&gt;" + "Format: " + result.format + "&lt;br/&gt;" +  "Cancelled: " + result.cancelled;      
+                     alert(s);                                                           
+                     }, function(error) {                                               
+                     alert("Scanning failed: " + error);                               
+                     }               
+            ); 
+        }            
         </script>
-          
-
-
-
-
         <title>Conductor</title>
 
     </head>
     <body>
-        <div data-role="page" class="pagina" id="menu">
-            <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>
-            <div data-role="content">
-                <ul data-role="listview" data-inset="true" class="noshadow">
-                    <li data-icon="false">
-                        <a href="#scanQR" data-transition="flow">
-                            <img class="imgList" src="img/pasajero.png">
-                            <h2>Agregar Pasajero</h2>
-                            <p>Escanear pasaje QR</p>
-                        </a>
-                    </li>
-                    <li data-icon="false">
-                        <a href="#mapaC" data-transition="flow">
-                            <img class="imgList" src="img/route.png">
-                            <h2>Ver Mapa</h2>
-                            <p>Muestra Ruta</p>
-                        </a>
-                    </li>
-                  </ul>
-                
-            </div>
-          </div>
-
-        <div data-role="page" id="scanQR">
-                <div data-role="header" class="header">
-                        <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>   
-                        <div class="titulo">
-                        <a href="#menu" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="c" >Volver</a>
-                        </div>
-                        <p><h2>Escanear pasaje QR</h2></p>
-                        <div  style="width: 40%;margin: auto">
-                            <input type="submit"  onclick="startScan()" value="Escanear">
-                        </div>
-                </div>
-        </div>
         <div data-role="page" id="mapaC" class="pagina">
             <div data-role="header"  class="header">
                 <div id="upbar" style="margin:0; height:20px; width:100%; background-color:#FFFFFF; float:left"></div>
                     <div class="titulo">
                         <a href="#menu" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="c" >Volver</a>
                     </div>
-                    <p><h2 id="infoNombre"></h2>
-                    <b id="infoOrigen"></b>
-                    <b id="infoDestino"></b></p>
             </div>
             <div data-role="content">
                 <div id="googleMap" >
                 </div>
                 <div class="ui-field-contain">
                     <div  style="width: 60%;margin: auto">
-                    <center><h4>Rutas:<h4></center>
-                    <select name="select-native-2" id="select-native-2" data-mini="true">
-                        <option value="1">The 1st Option</option>
-                        <option value="2">The 2nd Option</option>
-                        <option value="3">The 3rd Option</option>
-                        <option value="4">The 4th Option</option>
-
+                    <center>
+                        <a onclick="startScan()" style="background: none !important;">
+                          <img src="img/pasajero.png" alt="HTML tutorial" style="width:30px;height:30px;">
+                        </a>
+                        <h4>Rutas:<h4>
+                    </center>
+                    <select  id="listaRutasC" data-mini="true">
+                        <option value="0" selected="selected"> Escoje una ruta</option>
                     </select>
                     </div>
                     <div  style="width: 40%;margin: auto">
-                        <input type="submit" for="select-native-2" value="Iniciarr">
+                        <input type="submit" id="accionRuta" value="Iniciar">
                     </div>
                 </div>
                 

@@ -2,15 +2,32 @@ var actualizadorBus;
 var markerBus;
 $(document).on("pageshow","#rutainfo",function(){
     var map;
-    var arrayMarcadores = [];
-    var marcadorTemp;
+    var infoWindow = new google.maps.InfoWindow();
     var idRutaSeleccionada=localStorage.getItem("idRuta");
     var idBusRuta;
-    var otromarker;
+    var clickedMarker;
+
+    var agregarParada =function(latitud, longitud, nombre){
+        var temp=new google.maps.Marker({
+            position: new google.maps.LatLng(latitud,longitud),
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: 'img/marker.png',
+            title: nombre
+        });
+
+        google.maps.event.addListener(temp, 'click', function (point) {
+            infoWindow.close();
+            infoWindow.setContent("Nombre de la parada: "+nombre);
+            infoWindow.open(map, temp);
+           temp.setIcon('img/marker_yellow.png');
+           if(clickedMarker!=null)
+            clickedMarker.setIcon('img/marker.png');
+           clickedMarker=temp;
+        });
+    }
 
     var onSuccess= function(position){
-        otromarker=position;
-        console.log("yes");
         var $map_canvas = $( "#googleMap" );
         $map_canvas.css({"width": "100%", "height": $( window ).height()*0.7});
         var mapOptions = {
@@ -31,7 +48,6 @@ $(document).on("pageshow","#rutainfo",function(){
 
             });
         $.getJSON(serverURL+"/route_schedule", function( data ) {
-            // var infowindow = new google.maps.InfoWindow();
             for(var i=0;i<data.length;i++){
                 if(data[i].id_route_schedule==idRutaSeleccionada){
                     $("#infoNombre").text("Ruta: "+data[i].name);
@@ -40,11 +56,8 @@ $(document).on("pageshow","#rutainfo",function(){
                     idBusRuta=data[i].bus.id_bus;
                     
                     for(var j=0;j<data[i].road.stops.length;j++){
-                        new google.maps.Marker({
-                            position: new google.maps.LatLng(data[i].road.stops[j].latitude,data[i].road.stops[j].longitude),
-                            map: map,
-                            animation: google.maps.Animation.DROP
-                        });
+                        agregarParada(data[i].road.stops[j].latitude,data[i].road.stops[j].longitude,data[i].road.stops[j].name);
+
                     }
                 }                            
             }
@@ -87,18 +100,69 @@ $(document).on("pageshow","#rutainfo",function(){
     actualizarPosicionBus();
     actualizadorBus=setInterval(actualizarPosicionBus,3000);
 });
+
+
 $(document).on('pagebeforehide', '#rutainfo', function(){       
     clearInterval(actualizadorBus);
 });
+
+
+
 $(document).on("pageshow","#mapaC",function(){
+    var arrayMarkers= [];
     var map;
-    var marcadorTemp;
-    
-    var otromarker;
+    $('#accionRuta').click(function () {
+        if($('#accionRuta').val()=="Iniciar"){
+            var idRutaSeleccionada=$('#listaRutasC').val();
+
+            if(idRutaSeleccionada!=0){
+                $.getJSON(serverURL+"/route_schedule", function( data ) {
+                    arrayMarkers= [];
+                    for(var i=0;i<data.length;i++){
+                        if(data[i].id_route_schedule==idRutaSeleccionada){
+                            for(var j=0;j<data[i].road.stops.length;j++){
+                                arrayMarkers[j]= new google.maps.Marker({
+                                    position: new google.maps.LatLng(data[i].road.stops[j].latitude,data[i].road.stops[j].longitude),
+                                    map: map,
+                                    animation: google.maps.Animation.DROP,
+                                    icon: "img/marker.png"
+                                });
+
+                            }
+                        }                            
+                    }
+                }).fail( function(d, textStatus, error) {
+                    console.log("getJSON failed, status: " + textStatus + ", error: "+error);
+                    alert("getJSON failed, status: " + textStatus + ", error: "+error);
+                }); 
+            }else{
+                alert("Debes escojer una ruta de la lista antes de iniciar");
+            }
+            $('#accionRuta').val("Terminar");
+        }else if($('#accionRuta').val()=="Terminar"){
+            for (var i = 0; i < arrayMarkers.length; i++ ) {
+                arrayMarkers[i].setMap(null);
+            }
+            $('#accionRuta').val("Iniciar");
+        }
+        $('#accionRuta').button("refresh");
+    });
+
+
+
+
+    $.getJSON(serverURL+"/route_schedule", function( data ) {
+        var lista=$('#listaRutasC'); 
+            for(var i=0;i<data.length;i++){
+                
+                lista.append("<option value='"+data[i].id_route_schedule+"'>"+data[i].name+"</option>");                        
+            }
+    }).fail( function(d, textStatus, error) {
+        console.log("getJSON failed, status: " + textStatus + ", error: "+error);
+        alert("getJSON failed, status: " + textStatus + ", error: "+error);
+    }); 
 
     var onSuccess= function(position){
-        otromarker=position;
-        console.log("yes");
         var $map_canvas = $( "#googleMap" );
         $map_canvas.css({"width": "100%", "height": $( window ).height()*0.7});
         var mapOptions = {
